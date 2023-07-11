@@ -3,97 +3,92 @@ from PIL import Image
 import pickle
 
 
+# Load the machine learning model
 model = pickle.load(open('./Model/Loan_Approval_Prediction.pkl', 'rb'))
 
+# Set page configuration
+st.set_page_config(
+    page_title="Bank Loan Prediction",
+    page_icon="💰",
+    layout="wide"
+)
+
+
+# Define the main function to run the web application
 def run():
+    # Add a title and image to the page
+    st.title("Bank Loan Prediction")
     img1 = Image.open('celebal.jpeg')
-    img1 = img1.resize((156,145))
-    st.image(img1,use_column_width=False)
-    st.title("Bank Loan Prediction using Machine Learning")
+    img1 = img1.resize((156, 145))
+    st.sidebar.image(img1, use_column_width=False)
 
-    ## Account No
-    account_no = st.text_input('Account number')
+    # Create a sidebar with project information
+    st.sidebar.header("Project Details")
+    st.sidebar.markdown("This web application predicts the likelihood of a loan approval by a bank based on the provided information.")
 
-    ## Full Name
+    # Add a form for user inputs
+    st.header("User Inputs")
+    account_no = st.text_input('Account Number')
     fn = st.text_input('Full Name')
 
-    ## For gender
-    gen_display = ('Female','Male')
-    gen_options = list(range(len(gen_display)))
-    gen = st.selectbox("Gender",gen_options, format_func=lambda x: gen_display[x])
+    # Gender
+    gen_options = ['Female', 'Male']
+    gen = st.selectbox("Gender", gen_options)
 
-    ## For Marital Status
-    mar_display = ('No','Yes')
-    mar_options = list(range(len(mar_display)))
-    mar = st.selectbox("Marital Status", mar_options, format_func=lambda x: mar_display[x])
+    # Marital Status
+    mar_options = ['No', 'Yes']
+    mar = st.selectbox("Marital Status", mar_options)
 
-    ## No of dependets
-    dep_display = ('No','One','Two','More than Two')
-    dep_options = list(range(len(dep_display)))
-    dep = st.selectbox("Dependents",  dep_options, format_func=lambda x: dep_display[x])
+    # Dependents
+    dep_options = ['No', 'One', 'Two', 'More than Two']
+    dep = st.selectbox("Dependents", dep_options)
 
-    ## For edu
-    edu_display = ('Not Graduate','Graduate')
-    edu_options = list(range(len(edu_display)))
-    edu = st.selectbox("Education",edu_options, format_func=lambda x: edu_display[x])
+    # Education
+    edu_options = ['Not Graduate', 'Graduate']
+    edu = st.selectbox("Education", edu_options)
 
-    ## For emp status
-    emp_display = ('Job','Business')
-    emp_options = list(range(len(emp_display)))
-    emp = st.selectbox("Employment Status",emp_options, format_func=lambda x: emp_display[x])
+    # Employment Status
+    emp_options = ['Job', 'Business']
+    emp = st.selectbox("Employment Status", emp_options)
 
-    ## For Property status
-    prop_display = ('Rural','Semi-Urban','Urban')
-    prop_options = list(range(len(prop_display)))
-    prop = st.selectbox("Property Area",prop_options, format_func=lambda x: prop_display[x])
+    # Property Area
+    prop_options = ['Rural', 'Semi-Urban', 'Urban']
+    prop = st.selectbox("Property Area", prop_options)
 
-    ## For Credit Score
-    cred_display = ('Between 300 to 500','Above 500')
-    cred_options = list(range(len(cred_display)))
-    cred = st.selectbox("Credit Score",cred_options, format_func=lambda x: cred_display[x])
+    # Credit Score
+    cred_options = ['Between 300 to 500', 'Above 500']
+    cred = st.selectbox("Credit Score", cred_options)
 
-    ## Applicant Monthly Income
-    mon_income = st.number_input("Applicant's Monthly Income($)",value=0)
+    # Applicant's Monthly Income
+    mon_income = st.number_input("Applicant's Monthly Income ($)", value=0)
 
-    ## Co-Applicant Monthly Income
-    co_mon_income = st.number_input("Co-Applicant's Monthly Income($)",value=0)
+    # Co-Applicant's Monthly Income
+    co_mon_income = st.number_input("Co-Applicant's Monthly Income ($)", value=0)
 
-    ## Loan AMount
-    loan_amt = st.number_input("Loan Amount",value=0)
+    # Loan Amount
+    loan_amt = st.number_input("Loan Amount ($)", value=0)
 
-    ## loan duration
-    dur_display = ['2 Month','6 Month','8 Month','1 Year','16 Month']
-    dur_options = range(len(dur_display))
-    dur = st.selectbox("Loan Duration",dur_options, format_func=lambda x: dur_display[x])
+    # Loan Duration
+    dur_options = ['2 Months', '6 Months', '8 Months', '1 Year', '16 Months']
+    dur = st.selectbox("Loan Duration", dur_options)
 
     if st.button("Submit"):
-        duration = 0
-        if dur == 0:
-            duration = 60
-        if dur == 1:
-            duration = 180
-        if dur == 2:
-            duration = 240
-        if dur == 3:
-            duration = 360
-        if dur == 4:
-            duration = 480
+        duration = [60, 180, 240, 360, 480]
+        dur_mapping = dict(zip(dur_options, duration))
+        duration = dur_mapping[dur]
+
+        # Prepare features for prediction
         features = [[gen, mar, dep, edu, emp, mon_income, co_mon_income, loan_amt, duration, cred, prop]]
-        print(features)
         prediction = model.predict(features)
         lc = [str(i) for i in prediction]
         ans = int("".join(lc))
-        if ans == 0:
-            st.error(
-                "Hello: " + fn +" || "
-                "Account number: "+account_no +' || '
-                'According to our Calculations, you will not get the loan from Bank'
-            )
-        else:
-            st.success(
-                "Hello: " + fn +" || "
-                "Account number: "+account_no +' || '
-                'Congratulations!! you will get the loan from Bank'
-            )
 
+        # Display prediction result
+        if ans == 0:
+            st.error(f"Hello: {fn} | Account number: {account_no} | According to our analysis, you are unlikely to receive a loan from the bank.")
+        else:
+            st.success(f"Hello: {fn} | Account number: {account_no} | Congratulations! You are eligible for a loan from the bank.")
+
+
+# Run the application
 run()
