@@ -4,7 +4,7 @@ import pickle
 
 
 # Load the machine learning model
-model = pickle.load(open('./Model/ML_Model.pickle', 'rb'))
+model = pickle.load(open('./Model/Loan_Approval_Prediction.pickle', 'rb'))
 
 # Set page configuration
 st.set_page_config(
