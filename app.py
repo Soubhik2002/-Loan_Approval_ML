@@ -3,7 +3,7 @@ from PIL import Image
 import pickle
 
 
-model = pickle.load(open('./Model/Loan_Approval_Prediction.pickle', 'rb'))
+model = pickle.load(open('./Model/Loan_Approval_Prediction.pkl', 'rb'))
 
 def run():
     img1 = Image.open('celebal.jpeg')
