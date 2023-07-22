@@ -69,8 +69,8 @@ def preprocess_input():
     #     duration = 360
     # elif Loan_Amount_Term == '16 Month':
     #     duration = 480
-
-    features = [[Gender,Married,Dependents,Education,Self_Employed,Property_Area,Credit_History,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term]]
+    
+    features = [[Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area]]
     return features
 
 def main():
