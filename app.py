@@ -80,14 +80,15 @@ def main():
     # if st.button("Submit"):
     features = preprocess_input()
     prediction = model.predict(features)
-    if prediction[0] == 0:
-        st.error(
-            print("According to our Calculations, you will not get the loan from Bank")
-            )
-    else:
-        st.success(
-                print("Congratulations!! you will get the loan from Bank")
-            )
+    if st.button("Submit"):
+        if prediction[0] == 0:
+            st.error(
+                print("According to our Calculations, you will not get the loan from Bank")
+                )
+        else:
+            st.success(
+                    print("Congratulations!! you will get the loan from Bank")
+                )
 
 if __name__ == '__main__':
     main()
