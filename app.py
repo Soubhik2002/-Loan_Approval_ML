@@ -16,7 +16,7 @@ from sklearn.model_selection import train_test_split  # Importing train_test_spl
 from sklearn.preprocessing import scale, StandardScaler  # Importing scale and StandardScaler for data scaling
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score  # Importing evaluation metrics
 from sklearn.model_selection import cross_val_score  # Importing cross_val_score for cross-validation
-
+import pickle
 # Load the trained model
 model = pickle.load(open('Loan_Approval_Prediction.pkl', 'rb'))
 
