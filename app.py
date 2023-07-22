@@ -60,20 +60,11 @@ def main():
     if st.button("Predict"):
         predicted_label = model.predict(features)
         st.write("Predicted Label:", predicted_label)
-
-    # features = preprocess_input()
-    # prediction = model.predict(features)
-    # if st.button("Submit"):
-    #     if prediction[0] == 0:
-    #         # st.error(
-    #         #     print("According to our Calculations, you will not get the loan from Bank")
-    #         #     )
-    #         print("According to our Calculations, you will not get the loan from Bank")
-    #     else:
-    #         # st.success(
-    #         #         print("Congratulations!! you will get the loan from Bank")
-    #         #     )
-    #         print("Congratulations!! you will get the loan from Bank")
-
+        if predicted_label == 0:
+            st.write("According to our Calculations, you will not get the loan from Bank")
+        else:
+            st.write("Congratulations!! you will get the loan from Bank")
+           
+    
 if __name__ == '__main__':
     main()
