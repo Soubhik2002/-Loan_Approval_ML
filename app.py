@@ -57,19 +57,24 @@ def main():
 
     st.title("Bank Loan Prediction using Machine Learning")
 
-    features = preprocess_input()
-    prediction = model.predict(features)
-    if st.button("Submit"):
-        if prediction[0] == 0:
-            # st.error(
-            #     print("According to our Calculations, you will not get the loan from Bank")
-            #     )
-            print("According to our Calculations, you will not get the loan from Bank")
-        else:
-            # st.success(
-            #         print("Congratulations!! you will get the loan from Bank")
-            #     )
-            print("Congratulations!! you will get the loan from Bank")
+    if st.button("Predict"):
+        features = [[Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area]]
+        predicted_label = preprocess_input(features)
+        st.write("Predicted Label:", predicted_label)
+
+    # features = preprocess_input()
+    # prediction = model.predict(features)
+    # if st.button("Submit"):
+    #     if prediction[0] == 0:
+    #         # st.error(
+    #         #     print("According to our Calculations, you will not get the loan from Bank")
+    #         #     )
+    #         print("According to our Calculations, you will not get the loan from Bank")
+    #     else:
+    #         # st.success(
+    #         #         print("Congratulations!! you will get the loan from Bank")
+    #         #     )
+    #         print("Congratulations!! you will get the loan from Bank")
 
 if __name__ == '__main__':
     main()
