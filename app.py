@@ -66,7 +66,7 @@ def preprocess_input():
 
 def main():
     # Load the bank logo image
-    img1 = Image.open('bank.png')
+    img1 = Image.open('celebal.jpeg')
     img1 = img1.resize((156, 145))
     st.image(img1, use_column_width=False)
 
