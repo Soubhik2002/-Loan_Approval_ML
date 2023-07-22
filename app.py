@@ -24,15 +24,7 @@ def preprocess_input():
 
     # For Employment Status
     employment_options = [0,1]
-    Self_Employed = st.selectbox("Employment Status", employment_options)
-
-    # For Property Area
-    property_area_options = [0,1,2]
-    Property_Area = st.selectbox("Property Area", property_area_options)
-
-    # For Credit Score
-    credit_score_options = [1,0]
-    Credit_History = st.selectbox("Credit Score", credit_score_options)
+    Self_Employed = st.selectbox("Self Employed ", employment_options)
 
     # Applicant Monthly Income
     ApplicantIncome = st.number_input("Applicant's Monthly Income($)", value=0)
@@ -40,11 +32,29 @@ def preprocess_input():
     # Co-Applicant Monthly Income
     CoapplicantIncome = st.number_input("Co-Applicant's Monthly Income($)", value=0)
 
-    # Loan Amount
+     # Loan Amount
     LoanAmount = st.number_input("Loan Amount", value=0)
 
     # Loan Duration
     Loan_Amount_Term = st.number_input("Loan Amount Term", value=0)
+
+    # For Credit Score
+    credit_score_options = [1,0]
+    Credit_History = st.selectbox("Credit History", credit_score_options)
+    
+    # For Property Area
+    property_area_options = [0,1,2]
+    Property_Area = st.selectbox("Property Area", property_area_options)
+
+    
+
+    
+
+    
+
+   
+
+    
     # loan_duration_options = ['2 Month', '6 Month', '8 Month', '1 Year', '16 Month']
     # Loan_Amount_Term = st.selectbox("Loan Duration", loan_duration_options)
 
@@ -79,8 +89,9 @@ def main():
 
     # if st.button("Submit"):
     features = preprocess_input()
-    prediction = model.predict(features)
+   
     if st.button("Submit"):
+         prediction = model.predict(features)
         if prediction[0] == 0:
             st.error(
                 print("According to our Calculations, you will not get the loan from Bank")
