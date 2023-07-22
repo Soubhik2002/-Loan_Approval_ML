@@ -86,7 +86,7 @@ def main():
             )
     else:
         st.success(
-                print(Congratulations!! you will get the loan from Bank")
+                print("Congratulations!! you will get the loan from Bank")
             )
 
 if __name__ == '__main__':
