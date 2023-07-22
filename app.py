@@ -1,99 +1,89 @@
 import streamlit as st
-from PIL import Image
-import pickle
+import numpy as np  # Importing the NumPy library for numerical operations and array manipulation
+import pandas as pd  # Importing the Pandas library for data manipulation and analysis
+import matplotlib.pyplot as plt  # Importing the Matplotlib library for creating visualizations and graphs
+import seaborn as sns  # Importing the Seaborn library for higher-level statistical graphics
+import sklearn  # Importing scikit-learn, a comprehensive machine learning library
+from sklearn.preprocessing import LabelEncoder  # Importing LabelEncoder for encoding categorical variables
+from sklearn.linear_model import LogisticRegression  # Importing LogisticRegression for classification
+from sklearn.metrics import accuracy_score  # Importing accuracy_score for model evaluation
+from sklearn.tree import DecisionTreeClassifier  # Importing DecisionTreeClassifier for decision tree-based classification
+from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier  # Importing GradientBoostingClassifier and RandomForestClassifier for ensemble learning
+from sklearn.neighbors import KNeighborsClassifier  # Importing KNeighborsClassifier for k-nearest neighbors classification
+from sklearn.model_selection import RandomizedSearchCV  # Importing RandomizedSearchCV for hyperparameter tuning
+from xgboost import XGBClassifier  # Importing XGBClassifier from the XGBoost library
+from sklearn.ensemble import RandomForestClassifier  # Importing RandomForestClassifier for random forest classification
+from imblearn.under_sampling import RandomUnderSampler  # Importing RandomUnderSampler for undersampling
+from sklearn.model_selection import train_test_split  # Importing train_test_split for splitting the dataset
+from sklearn.preprocessing import scale, StandardScaler  # Importing scale and StandardScaler for data scaling
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score  # Importing evaluation metrics
+from sklearn.model_selection import cross_val_score  # Importing cross_val_score for cross-validation
 
+# Load the trained model
+model = pickle.load(open('Loan_Approval_Prediction.pkl', 'rb'))
 
-model = pickle.load(open('./Model/Loan_Approval_Prediction.pkl', 'rb'))
+# Function to preprocess input data
+def preprocess_input(data):
+    # Convert categorical variables to numeric using LabelEncoder
+    le = LabelEncoder()
+    data['Gender'] = le.fit_transform(data['Gender'])
+    data['Married'] = le.fit_transform(data['Married'])
+    data['Education'] = le.fit_transform(data['Education'])
+    data['Self_Employed'] = le.fit_transform(data['Self_Employed'])
+    data['Property_Area'] = le.fit_transform(data['Property_Area'])
+    data['Dependents'] = le.fit_transform(data['Dependents'])
+    
+    # Fill missing values with the mean and scale the data
+    data['LoanAmount'] = data['LoanAmount'].fillna(data['LoanAmount'].mean())
+    data['Loan_Amount_Term'] = data['Loan_Amount_Term'].fillna(data['Loan_Amount_Term'].mean())
+    data['Credit_History'] = data['Credit_History'].fillna(data['Credit_History'].mean())
+    
+    # Scale the data
+    scaled_data = pd.DataFrame(scale(data), columns=data.columns)
+    return scaled_data
 
-def run():
-    img1 = Image.open('celebal.jpeg')
-    img1 = img1.resize((156,145))
-    st.image(img1,use_column_width=False)
-    st.title("Bank Loan Prediction using Machine Learning")
-
-    ## Account No
-    account_no = st.text_input('Account number')
-
-    ## Full Name
-    fn = st.text_input('Full Name')
-
-    ## For gender
-    gen_display = ('Female','Male')
-    gen_options = list(range(len(gen_display)))
-    gen = st.selectbox("Gender",gen_options, format_func=lambda x: gen_display[x])
-
-    ## For Marital Status
-    mar_display = ('No','Yes')
-    mar_options = list(range(len(mar_display)))
-    mar = st.selectbox("Marital Status", mar_options, format_func=lambda x: mar_display[x])
-
-    ## No of dependets
-    dep_display = ('No','One','Two','More than Two')
-    dep_options = list(range(len(dep_display)))
-    dep = st.selectbox("Dependents",  dep_options, format_func=lambda x: dep_display[x])
-
-    ## For edu
-    edu_display = ('Not Graduate','Graduate')
-    edu_options = list(range(len(edu_display)))
-    edu = st.selectbox("Education",edu_options, format_func=lambda x: edu_display[x])
-
-    ## For emp status
-    emp_display = ('Job','Business')
-    emp_options = list(range(len(emp_display)))
-    emp = st.selectbox("Employment Status",emp_options, format_func=lambda x: emp_display[x])
-
-    ## For Property status
-    prop_display = ('Rural','Semi-Urban','Urban')
-    prop_options = list(range(len(prop_display)))
-    prop = st.selectbox("Property Area",prop_options, format_func=lambda x: prop_display[x])
-
-    ## For Credit Score
-    cred_display = ('Between 300 to 500','Above 500')
-    cred_options = list(range(len(cred_display)))
-    cred = st.selectbox("Credit Score",cred_options, format_func=lambda x: cred_display[x])
-
-    ## Applicant Monthly Income
-    mon_income = st.number_input("Applicant's Monthly Income($)",value=0)
-
-    ## Co-Applicant Monthly Income
-    co_mon_income = st.number_input("Co-Applicant's Monthly Income($)",value=0)
-
-    ## Loan AMount
-    loan_amt = st.number_input("Loan Amount",value=0)
-
-    ## loan duration
-    dur_display = ['2 Month','6 Month','8 Month','1 Year','16 Month']
-    dur_options = range(len(dur_display))
-    dur = st.selectbox("Loan Duration",dur_options, format_func=lambda x: dur_display[x])
-
-    if st.button("Submit"):
-        duration = 0
-        if dur == 0:
-            duration = 60
-        if dur == 1:
-            duration = 180
-        if dur == 2:
-            duration = 240
-        if dur == 3:
-            duration = 360
-        if dur == 4:
-            duration = 480
-        features = [[gen, mar, dep, edu, emp, mon_income, co_mon_income, loan_amt, duration, cred, prop]]
-        print(features)
-        prediction = model.predict(features)
-        lc = [str(i) for i in prediction]
-        ans = int("".join(lc))
-        if ans == 0:
-            st.error(
-                "Hello: " + fn +" || "
-                "Account number: "+account_no +' || '
-                'According to our Calculations, you will not get the loan from Bank'
-            )
-        else:
-            st.success(
-                "Hello: " + fn +" || "
-                "Account number: "+account_no +' || '
-                'Congratulations!! you will get the loan from Bank'
-            )
-
-run()
+# Streamlit app
+def main():
+    st.title('Loan Approval Prediction')
+    st.write("Enter the details to check if your loan will be approved or not.")
+    
+    # Input fields for user data
+    gender = st.selectbox('Gender', ['Male', 'Female'])
+    married = st.selectbox('Marital Status', ['Yes', 'No'])
+    dependents = st.number_input('Number of Dependents', min_value=0, max_value=10, value=0)
+    education = st.selectbox('Education', ['Graduate', 'Not Graduate'])
+    self_employed = st.selectbox('Self Employed', ['Yes', 'No'])
+    applicant_income = st.number_input('Applicant Income', min_value=0, value=0)
+    coapplicant_income = st.number_input('Co-applicant Income', min_value=0, value=0)
+    loan_amount = st.number_input('Loan Amount', min_value=0, value=0)
+    loan_amount_term = st.number_input('Loan Amount Term', min_value=0, value=0)
+    credit_history = st.selectbox('Credit History', [0.0, 1.0])
+    property_area = st.selectbox('Property Area', ['Rural', 'Semiurban', 'Urban'])
+    
+    # Create a DataFrame with the user input data
+    input_data = pd.DataFrame({
+        'Gender': [gender],
+        'Married': [married],
+        'Dependents': [dependents],
+        'Education': [education],
+        'Self_Employed': [self_employed],
+        'ApplicantIncome': [applicant_income],
+        'CoapplicantIncome': [coapplicant_income],
+        'LoanAmount': [loan_amount],
+        'Loan_Amount_Term': [loan_amount_term],
+        'Credit_History': [credit_history],
+        'Property_Area': [property_area]
+    })
+    
+    # Preprocess the input data and make the prediction
+    processed_input = preprocess_input(input_data)
+    prediction = model.predict(processed_input)
+    
+    # Display the prediction result
+    if prediction[0] == 1:
+        st.write("Congratulations! Your loan will be approved.")
+    else:
+        st.write("Sorry, your loan will not be approved.")
+    
+if __name__ == '__main__':
+    main()
