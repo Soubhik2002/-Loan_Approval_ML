@@ -59,7 +59,7 @@ def main():
     preprocess_input()
     if st.button("Predict"):
         features = [[Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area]]
-        predicted_label = preprocess_input(features)
+        predicted_label = model.predict(features)
         st.write("Predicted Label:", predicted_label)
 
     # features = preprocess_input()
