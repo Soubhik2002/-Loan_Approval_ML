@@ -56,9 +56,8 @@ def main():
     st.image(img1, use_column_width=False)
 
     st.title("Bank Loan Prediction using Machine Learning")
-    preprocess_input()
+    features = preprocess_input()
     if st.button("Predict"):
-        features = [[Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area]]
         predicted_label = model.predict(features)
         st.write("Predicted Label:", predicted_label)
 
