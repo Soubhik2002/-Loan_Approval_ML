@@ -44,21 +44,21 @@ def preprocess_input():
     LoanAmount = st.number_input("Loan Amount", value=0)
 
     # Loan Duration
-    # Loan_Amount_Term = st.number_input("Loan Amount Term", value=0)
-    loan_duration_options = ['2 Month', '6 Month', '8 Month', '1 Year', '16 Month']
-    Loan_Amount_Term = st.selectbox("Loan Duration", loan_duration_options)
+     Loan_Amount_Term = st.number_input("Loan Amount Term", value=0)
+    # loan_duration_options = ['2 Month', '6 Month', '8 Month', '1 Year', '16 Month']
+    # Loan_Amount_Term = st.selectbox("Loan Duration", loan_duration_options)
 
-    duration = 0
-    if Loan_Amount_Term == '2 Month':
-        duration = 60
-    elif Loan_Amount_Term == '6 Month':
-        duration = 180
-    elif Loan_Amount_Term == '8 Month':
-        duration = 240
-    elif Loan_Amount_Term == '1 Year':
-        duration = 360
-    elif Loan_Amount_Term == '16 Month':
-        duration = 480
+    # duration = 0
+    # if Loan_Amount_Term == '2 Month':
+    #     duration = 60
+    # elif Loan_Amount_Term == '6 Month':
+    #     duration = 180
+    # elif Loan_Amount_Term == '8 Month':
+    #     duration = 240
+    # elif Loan_Amount_Term == '1 Year':
+    #     duration = 360
+    # elif Loan_Amount_Term == '16 Month':
+    #     duration = 480
 
     features = [[gender,Married,Dependents,education,Self_Employed,Property_Area,Credit_History,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term]]
     return features
