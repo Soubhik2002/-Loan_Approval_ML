@@ -12,7 +12,6 @@ from sklearn.neighbors import KNeighborsClassifier  # Importing KNeighborsClassi
 from sklearn.model_selection import RandomizedSearchCV  # Importing RandomizedSearchCV for hyperparameter tuning
 from xgboost import XGBClassifier  # Importing XGBClassifier from the XGBoost library
 from sklearn.ensemble import RandomForestClassifier  # Importing RandomForestClassifier for random forest classification
-from imblearn.under_sampling import RandomUnderSampler  # Importing RandomUnderSampler for undersampling
 from sklearn.model_selection import train_test_split  # Importing train_test_split for splitting the dataset
 from sklearn.preprocessing import scale, StandardScaler  # Importing scale and StandardScaler for data scaling
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, f1_score  # Importing evaluation metrics
