@@ -71,11 +71,11 @@ def main():
 
     st.title("Bank Loan Prediction using Machine Learning")
 
-    ## Account No
-    account_no = st.text_input('Account number')
+    # ## Account No
+    # account_no = st.text_input('Account number')
 
-    ## Full Name
-    fn = st.text_input('Full Name')
+    # ## Full Name
+    # fn = st.text_input('Full Name')
 
     if st.button("Submit"):
         features = preprocess_input()
