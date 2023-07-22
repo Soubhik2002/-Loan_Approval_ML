@@ -90,5 +90,5 @@ def main():
                 f"Hello: {fn} || Account number: {account_no} || Congratulations!! you will get the loan from Bank"
             )
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     main()
