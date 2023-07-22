@@ -45,30 +45,6 @@ def preprocess_input():
     # For Property Area
     property_area_options = [0,1,2]
     Property_Area = st.selectbox("Property Area", property_area_options)
-
-    
-
-    
-
-    
-
-   
-
-    
-    # loan_duration_options = ['2 Month', '6 Month', '8 Month', '1 Year', '16 Month']
-    # Loan_Amount_Term = st.selectbox("Loan Duration", loan_duration_options)
-
-    # duration = 0
-    # if Loan_Amount_Term == '2 Month':
-    #     duration = 60
-    # elif Loan_Amount_Term == '6 Month':
-    #     duration = 180
-    # elif Loan_Amount_Term == '8 Month':
-    #     duration = 240
-    # elif Loan_Amount_Term == '1 Year':
-    #     duration = 360
-    # elif Loan_Amount_Term == '16 Month':
-    #     duration = 480
     
     features = [[Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area]]
     return features
@@ -81,17 +57,9 @@ def main():
 
     st.title("Bank Loan Prediction using Machine Learning")
 
-    # ## Account No
-    # account_no = st.text_input('Account number')
-
-    # ## Full Name
-    # fn = st.text_input('Full Name')
-
-    # if st.button("Submit"):
     features = preprocess_input()
-   
+    prediction = model.predict(features)
     if st.button("Submit"):
-        prediction = model.predict(features)
         if prediction[0] == 0:
             # st.error(
             #     print("According to our Calculations, you will not get the loan from Bank")
