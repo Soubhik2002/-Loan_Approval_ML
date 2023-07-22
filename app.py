@@ -8,7 +8,7 @@ model = pickle.load(open('./Model/Loan_Approval_Prediction.pickle', 'rb'))
 def preprocess_input():
     # For gender
     gender_options = [0, 1]
-    gender = st.selectbox("Gender", gender_options)
+    Gender = st.selectbox("Gender", gender_options)
 
     # For Marital Status
     marital_status_options = [0, 1]
@@ -20,7 +20,7 @@ def preprocess_input():
 
     # For Education
     education_options = [1,0]
-    education = st.selectbox("Education", education_options)
+    Education = st.selectbox("Education", education_options)
 
     # For Employment Status
     employment_options = [0,1]
@@ -30,16 +30,16 @@ def preprocess_input():
     ApplicantIncome = st.number_input("Applicant's Monthly Income($)", value=0)
 
     # Co-Applicant Monthly Income
-    CoapplicantIncome = st.number_input("Co-Applicant's Monthly Income($)", value=0)
+    CoapplicantIncome = st.number_input("Co-Applicant's Monthly Income($)", value=0.0)
 
      # Loan Amount
-    LoanAmount = st.number_input("Loan Amount", value=0)
+    LoanAmount = st.number_input("Loan Amount", value=0.0)
 
     # Loan Duration
     Loan_Amount_Term = st.number_input("Loan Amount Term", value=0)
 
     # For Credit Score
-    credit_score_options = [1,0]
+    credit_score_options = [1.0,0.0]
     Credit_History = st.selectbox("Credit History", credit_score_options)
     
     # For Property Area
@@ -70,7 +70,7 @@ def preprocess_input():
     # elif Loan_Amount_Term == '16 Month':
     #     duration = 480
 
-    features = [[gender,Married,Dependents,education,Self_Employed,Property_Area,Credit_History,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term]]
+    features = [[Gender,Married,Dependents,Education,Self_Employed,Property_Area,Credit_History,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term]]
     return features
 
 def main():
