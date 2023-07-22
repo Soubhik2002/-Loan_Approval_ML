@@ -12,7 +12,7 @@ def preprocess_input():
 
     # For Marital Status
     marital_status_options = [0, 1]
-    Married = st.selectbox("Marital Status", marital_status_options)
+    Married = st.selectbox("Marital Status (Married = 1, Unmarried = 0)", marital_status_options)
 
     # No of dependents
     dependents_options = [0,1,2,3]
@@ -20,11 +20,11 @@ def preprocess_input():
 
     # For Education
     education_options = [1,0]
-    Education = st.selectbox("Education", education_options)
+    Education = st.selectbox("Education (Graduate = 0, Not-Graduate = 1)", education_options)
 
     # For Employment Status
     employment_options = [0,1]
-    Self_Employed = st.selectbox("Self Employed ", employment_options)
+    Self_Employed = st.selectbox("Self Employed (No = 0, Yes = 1)", employment_options)
 
     # Applicant Monthly Income
     ApplicantIncome = st.number_input("Applicant's Monthly Income($)", value=0)
@@ -44,7 +44,7 @@ def preprocess_input():
     
     # For Property Area
     property_area_options = [0,1,2]
-    Property_Area = st.selectbox("Property Area", property_area_options)
+    Property_Area = st.selectbox("Property Area (Rural = 0,Semiurban = 1,Urban = 2)", property_area_options)
     
     features = [[Gender,Married,Dependents,Education,Self_Employed,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term,Credit_History,Property_Area]]
     return features
