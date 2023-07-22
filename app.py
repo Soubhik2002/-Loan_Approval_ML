@@ -44,7 +44,7 @@ def preprocess_input():
     LoanAmount = st.number_input("Loan Amount", value=0)
 
     # Loan Duration
-     Loan_Amount_Term = st.number_input("Loan Amount Term", value=0)
+    Loan_Amount_Term = st.number_input("Loan Amount Term", value=0)
     # loan_duration_options = ['2 Month', '6 Month', '8 Month', '1 Year', '16 Month']
     # Loan_Amount_Term = st.selectbox("Loan Duration", loan_duration_options)
 
