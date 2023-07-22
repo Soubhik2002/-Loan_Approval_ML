@@ -2,7 +2,6 @@ import streamlit as st
 import numpy as np  # Importing the NumPy library for numerical operations and array manipulation
 import pandas as pd  # Importing the Pandas library for data manipulation and analysis
 import matplotlib.pyplot as plt  # Importing the Matplotlib library for creating visualizations and graphs
-import seaborn as sns  # Importing the Seaborn library for higher-level statistical graphics
 import sklearn  # Importing scikit-learn, a comprehensive machine learning library
 from sklearn.preprocessing import LabelEncoder  # Importing LabelEncoder for encoding categorical variables
 from sklearn.linear_model import LogisticRegression  # Importing LogisticRegression for classification
