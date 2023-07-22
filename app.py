@@ -91,7 +91,7 @@ def main():
     features = preprocess_input()
    
     if st.button("Submit"):
-         prediction = model.predict(features)
+        prediction = model.predict(features)
         if prediction[0] == 0:
             st.error(
                 print("According to our Calculations, you will not get the loan from Bank")
