@@ -7,61 +7,60 @@ model = pickle.load(open('./Model/Loan_Approval_Prediction.pickle', 'rb'))
 
 def preprocess_input():
     # For gender
-    gender_options = ['Female', 'Male']
+    gender_options = [0, 1]
     gender = st.selectbox("Gender", gender_options)
 
     # For Marital Status
-    marital_status_options = ['No', 'Yes']
-    marital_status = st.selectbox("Marital Status", marital_status_options)
+    marital_status_options = [0, 1]
+    Married = st.selectbox("Marital Status", marital_status_options)
 
     # No of dependents
-    dependents_options = ['No', 'One', 'Two', 'More than Two']
-    dependents = st.selectbox("Dependents", dependents_options)
+    dependents_options = [0,1,2,3]
+    Dependents = st.selectbox("Dependents", dependents_options)
 
     # For Education
-    education_options = ['Not Graduate', 'Graduate']
+    education_options = [1,0]
     education = st.selectbox("Education", education_options)
 
     # For Employment Status
-    employment_options = ['Job', 'Business']
-    employment_status = st.selectbox("Employment Status", employment_options)
+    employment_options = [0,1]
+    Self_Employed = st.selectbox("Employment Status", employment_options)
 
     # For Property Area
-    property_area_options = ['Rural', 'Semi-Urban', 'Urban']
-    property_area = st.selectbox("Property Area", property_area_options)
+    property_area_options = [0,1,2]
+    Property_Area = st.selectbox("Property Area", property_area_options)
 
     # For Credit Score
-    credit_score_options = ['Between 300 to 500', 'Above 500']
-    credit_score = st.selectbox("Credit Score", credit_score_options)
+    credit_score_options = [1,0]
+    Credit_History = st.selectbox("Credit Score", credit_score_options)
 
     # Applicant Monthly Income
-    applicant_income = st.number_input("Applicant's Monthly Income($)", value=0)
+    ApplicantIncome = st.number_input("Applicant's Monthly Income($)", value=0)
 
     # Co-Applicant Monthly Income
-    coapplicant_income = st.number_input("Co-Applicant's Monthly Income($)", value=0)
+    CoapplicantIncome = st.number_input("Co-Applicant's Monthly Income($)", value=0)
 
     # Loan Amount
-    loan_amount = st.number_input("Loan Amount", value=0)
+    LoanAmount = st.number_input("Loan Amount", value=0)
 
     # Loan Duration
+    # Loan_Amount_Term = st.number_input("Loan Amount Term", value=0)
     loan_duration_options = ['2 Month', '6 Month', '8 Month', '1 Year', '16 Month']
-    loan_duration = st.selectbox("Loan Duration", loan_duration_options)
+    Loan_Amount_Term = st.selectbox("Loan Duration", loan_duration_options)
 
     duration = 0
-    if loan_duration == '2 Month':
+    if Loan_Amount_Term == '2 Month':
         duration = 60
-    elif loan_duration == '6 Month':
+    elif Loan_Amount_Term == '6 Month':
         duration = 180
-    elif loan_duration == '8 Month':
+    elif Loan_Amount_Term == '8 Month':
         duration = 240
-    elif loan_duration == '1 Year':
+    elif Loan_Amount_Term == '1 Year':
         duration = 360
-    elif loan_duration == '16 Month':
+    elif Loan_Amount_Term == '16 Month':
         duration = 480
 
-    features = [[gender, marital_status, dependents, education, employment_status,
-                 applicant_income, coapplicant_income, loan_amount, duration,
-                 credit_score, property_area]]
+    features = [[gender,Married,Dependents,education,Self_Employed,Property_Area,Credit_History,ApplicantIncome,CoapplicantIncome,LoanAmount,Loan_Amount_Term]]
     return features
 
 def main():
