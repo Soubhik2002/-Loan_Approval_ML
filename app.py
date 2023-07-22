@@ -8,7 +8,7 @@ model = pickle.load(open('./Model/Loan_Approval_Prediction.pickle', 'rb'))
 def preprocess_input():
     # For gender
     gender_options = [0, 1]
-    Gender = st.selectbox("Gender", gender_options)
+    Gender = st.selectbox("Gender (Female = 0,Male= 1)", gender_options)
 
     # For Marital Status
     marital_status_options = [0, 1]
