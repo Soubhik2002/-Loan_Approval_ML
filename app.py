@@ -3,7 +3,7 @@ from PIL import Image
 import pickle
 
 # Load the machine learning model
-model = pickle.load(open('./Model/ML_Model.pkl', 'rb'))
+model = pickle.load(open('./Model/Loan_Approval_Prediction.pickle', 'rb'))
 
 def preprocess_input():
     # For gender
